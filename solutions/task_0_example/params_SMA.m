@@ -1,6 +1,3 @@
-% parameter list
-clear all
-
 % valve
 valve.m   = 0.1;                    % [kg]      mass of plunger
 valve.g   = 9.81;                   % [m/s^2]   gravity

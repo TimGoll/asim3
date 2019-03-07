@@ -1,5 +1,4 @@
 % parameter list
-clear all
 
 % valve
 valve.m   = 0.1;                    % [kg]      mass of plunger
