@@ -4,14 +4,18 @@ function [] = paw_default(data_x, data_y, data_title, label_x, label_y, task, ti
     
     % create figute
     this_fig = figure('Name', title);
-    xlabel(label_x);
-    ylabel(label_y);
     
     data_length = size(data_y, 1); %x is always the same
     for i=1:1:data_length %iterate over plot array
         plot(data_x{i}, data_y{i}, 'DisplayName', data_title{i}, 'Linewidth', 2);
         hold on;
     end
+    
+    grid;
+    grid minor;
+    
+    xlabel(label_x);
+    ylabel(label_y);
     
     if (do_legend)
         legend show;
