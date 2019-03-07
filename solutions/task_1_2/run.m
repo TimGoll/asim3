@@ -3,7 +3,7 @@ clear ALL;
 close ALL;
 warning ('off','all');
 
-do_rerun = true;
+do_rerun = false;
 
 params_SMA; %load simulation params
 params_plot; %load plot params
@@ -20,8 +20,8 @@ working_energy       = simOut_working.get('energy_consumption');
 working_engery_int   = simOut_working.get('energy_consumption_int');
 
 paw_default({working_time}, {working_flowrate}, {'working flow rate plot'}, 'time [s]', 'flowrate [m^3/s]', task_name, "flow rate plot", "plots", false, true)
-paw_default({working_time}, {working_energy}, {'working enegery plot'}, 'time [s]', 'energy [W]', task_name, "energy plot", "plots", false, true)
-paw_default({working_time}, {working_engery_int}, {'working integrated energy plot'}, 'time [s]', 'energy [W]', task_name, "integrated enegery plot", "plots", false, true)
+paw_default({working_time}, {working_energy}, {'working enegery plot'}, 'time [s]', 'power [W]', task_name, "energy plot", "plots", false, true)
+paw_default({working_time}, {working_engery_int}, {'working integrated energy plot'}, 'time [s]', 'energy [J]', task_name, "integrated enegery plot", "plots", false, true)
 
 
 
