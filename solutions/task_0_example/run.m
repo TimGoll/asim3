@@ -3,7 +3,7 @@ close ALL;
 params_SMA; %load simulation params
 params_plot; %load plot params
 
-path_arr = strsplit(mfilename('fullpath'), '/');
+path_arr = strsplit(mfilename('fullpath'), {'/', '\'});
 task_name = string(path_arr(end-1));
 disp('running ' + task_name);
 
