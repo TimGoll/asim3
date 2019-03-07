@@ -4,3 +4,4 @@ task 1.1/2
   --> default zeigt nun, dass Anlegen der Spannung das Magnetfeld zu schwach ist und der Verschlsus nicht angehoben werden kann
 Formel Folie 6: -mg=k(x-x_0) <=> x=-0.01981
 - working hat die "Hard stop force" implementiert. Dies ist der Endtstop und dadurch funktioneirt das Ventil
+	(Sprünge in Force-Graphen nochmal anschauen & erklären können!)
