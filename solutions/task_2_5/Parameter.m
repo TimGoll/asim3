@@ -101,6 +101,3 @@ J = [J11 J12;J21 J22];
 
 lf = matlabFunction(l);
 Jf = matlabFunction(J);
-
-%Berechnung Lagrange Funktion
-
