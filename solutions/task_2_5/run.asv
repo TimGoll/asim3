@@ -82,14 +82,8 @@ for i=1:1:500
     s1 = 'Animation';
     s2 = num2str(i);
     s3 = '.png';
-    
-    set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 25 11]);
 
-    path = "plots/animations/animation"+task_name+"___"+string(i)+".png";
-    disp(path);
-    
-    saveas(h, path);
+    saveas(h,[pwd cat(2,'\plots\animations\animation',num2str(i),'.png')]);
 
 end
 
