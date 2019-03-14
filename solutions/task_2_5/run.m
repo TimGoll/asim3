@@ -20,7 +20,8 @@ q1 = simOut.get('alpha1');
 q2 = simOut.get('alpha2');
 
 
-for i=3400:2:4000
+
+for i=320:1:595
     h = figure(i);   
 
     alpha1 = q1(i);
