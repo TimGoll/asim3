@@ -20,7 +20,7 @@ q1 = simOut.get('alpha1');
 q2 = simOut.get('alpha2');
 
 
-for i=1:1:500
+for i=3400:2:4000
     h = figure(i);   
 
     alpha1 = q1(i);
@@ -42,12 +42,12 @@ for i=1:1:500
     D1y = B1y - sin(beta-pi/2+alpha1)*L0;
     D1 = [D1x D1y];
 
-    A2x = sin(alpha1)*L0/2;
-    A2y = -cos(alpha1)*L0/2;
+    A2x = sin(alpha2)*L0/2;
+    A2y = -cos(alpha2)*L0/2;
     A2 = [A2x A2y];
 
-    B2x = sin(alpha1)*L0;
-    B2y = -cos(alpha1)*L0;
+    B2x = sin(alpha2)*L0;
+    B2y = -cos(alpha2)*L0;
     B2 = [B2x B2y];
 
     C2x = +sin(pi/4)*L0+Lp;
