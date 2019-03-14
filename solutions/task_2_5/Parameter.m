@@ -30,7 +30,8 @@ L0 = 0.1;           % beam length [m]
 beta = 110*pi/180;      % angle between beams [rad]
 Lp = params.L1*1.2;     
 k1 = 1000;
-k2 = 200;
+k2 = 0; %task 2_8
+%k2 = 200;
 q1_0 = initConds.alpha1_0;
 q1_dot_0 = 0;
 q2_0 = initConds.alpha2_0;
@@ -38,13 +39,8 @@ q2_dot_0 = 0;
 d01 = 0.05;%L0/2*sin(q1_0)*0.8;
 d02 = 0.1;
 m = 0.001;
+I = L0^2*m;
 
-%% Define initial conditions
-
-q1_0 = 45*pi/180;
-q1_dot_0 = 0;
-q2_0 = 45*pi/180;
-q2_dot_0 = 0;
 
 %% Define symcolic variables
 
@@ -84,20 +80,3 @@ C2 = [C2x C2y];
 D2x = B2x - cos(beta-pi/2+q2)*L0;
 D2y = B2y - sin(beta-pi/2+q2)*L0;
 D2 = [D2x D2y];
-
-%Berechnungen Task_2_4
-
-global lf Jf
-
-l1 = sqrt((C1(1)-B1(1))^2+(C1(2)-B1(2))^2);
-l2 = sqrt((C2(1)-B2(1))^2+(C2(2)-B2(2))^2);
-l=[l1;l2];
-
-J11 = simplify(diff(l1, q1));
-J12 = simplify(diff(l1, q2));
-J21 = simplify(diff(l2, q1));
-J22 = simplify(diff(l2, q2));
-J = [J11 J12;J21 J22];
-
-lf = matlabFunction(l);
-Jf = matlabFunction(J);
