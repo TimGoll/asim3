@@ -1,7 +1,7 @@
 clear all
 close all
 
-beta = 180*pi/180;
+beta = 150*pi/180;
 alpha1 = (pi-beta)/2;
 alpha2 = alpha1;
 
