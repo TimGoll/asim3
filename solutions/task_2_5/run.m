@@ -5,7 +5,7 @@ warning ('off','all');
 
 Parameter;
 
-do_rerun = false;
+do_rerun = true;
 
 path_arr = strsplit(mfilename('fullpath'), {'/', '\'});
 task_name = string(path_arr(end-1));
