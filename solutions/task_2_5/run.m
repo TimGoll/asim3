@@ -20,9 +20,25 @@ q1 = simOut.get('alpha1');
 q2 = simOut.get('alpha2');
 
 
+stepsize = 0.033;
+starttime = 10;
+endtime = 20;
 
-for i=320:1:595
-    h = figure(i);   
+i = 0;
+nextstep = starttime;
+img_num = 1;
+
+while true
+    i = i+1;
+    if (time(i) < nextstep)
+        continue;
+    end
+    
+    if (time(i) > endtime)
+        break;
+    end
+    
+    h = figure(img_num);   
 
     alpha1 = q1(i);
     alpha2 = q2(i);
@@ -87,10 +103,14 @@ for i=320:1:595
     set(gcf, 'PaperUnits', 'centimeters');
     set(gcf, 'PaperPosition', [0 0 25 11]);
 
-    path = "plots/animations/animation"+task_name+"___"+string(i)+".png";
+    path = "plots/animations/animation"+task_name+"___"+string(img_num)+".png";
     disp(path);
     
     saveas(h, path);
+    
+    %%%%%
+    nextstep = nextstep + stepsize;
+    img_num = img_num +1;
 
 end
 
