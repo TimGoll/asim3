@@ -1,7 +1,7 @@
 clear all
 close all
 
-beta = 150*pi/180;
+beta = 90*pi/180;
 alpha1 = (pi-beta)/2;
 alpha2 = alpha1;
 
@@ -11,7 +11,7 @@ Lp = 1.2 * 5e-2*5;
 filename = 'testAnimated.gif';
 n=1;
 
-for alpha1 = [(pi-beta)/2:0.5*pi/180:45*pi/180]
+for alpha1 = [(pi-beta)/2:0.5*pi/180:70*pi/180]
 h = figure(n);   
 
 alpha2 = alpha1;
@@ -81,7 +81,7 @@ n=n+1;
 
 end
 
-for alpha1 = [45*pi/180:-0.5*pi/180: (pi-beta)/2]
+for alpha1 = [70*pi/180:-0.5*pi/180: (pi-beta)/2]
 h = figure(n);   
 
 alpha2 = alpha1;
