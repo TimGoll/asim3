@@ -32,12 +32,12 @@ D1x = B1x + cos(beta-pi/2+alpha1)*L0;
 D1y = B1y - sin(beta-pi/2+alpha1)*L0;
 D1 = [D1x D1y];
 
-A2x = sin(alpha1)*L0/2;
-A2y = -cos(alpha1)*L0/2;
+A2x = sin(alpha2)*L0/2;
+A2y = -cos(alpha2)*L0/2;
 A2 = [A2x A2y];
 
-B2x = sin(alpha1)*L0;
-B2y = -cos(alpha1)*L0;
+B2x = sin(alpha2)*L0;
+B2y = -cos(alpha2)*L0;
 B2 = [B2x B2y];
 
 C2x = +sin(pi/4)*L0+Lp;
