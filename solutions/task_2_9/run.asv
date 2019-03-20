@@ -31,7 +31,7 @@ P2 = DW2./DT;
 
 paw_dedfault_alpha1(2:end),P1);
 
-paw_default({time}, {F1}, {'default'}, '\alpha_{1}', 'P_{1} [N]', task_name, "F1", "plots", false, true);
+paw_default({time}, {F1}, {'default'}, '\alpha', 'F_{1} [N]', task_name, "F1", "plots", false, true);
 paw_default({time}, {F2}, {'default'}, 'time [s]', 'F_{2} [N]', task_name, "F2", "plots", false, true);
 paw_default({time}, {q1}, {'default'}, 'time [s]', '\alpha_{1} [rad]', task_name, "Alpha1", "plots", false, true);
 paw_default({time}, {q2}, {'default'}, 'time [s]', '\alpha_{2} [rad]', task_name, "Alpha2", "plots", false, true);
