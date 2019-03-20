@@ -4,8 +4,9 @@ close ALL;
 warning ('off','all');
 
 Parameter;
+%beta = pi;
 
-do_rerun = true;
+do_rerun = false;
 
 path_arr = strsplit(mfilename('fullpath'), {'/', '\'});
 task_name = string(path_arr(end-1));
@@ -14,27 +15,23 @@ disp('running ' + task_name);
 %GET SIM DATA
 simOut = simulate('Controller', do_rerun);
 time = simOut.get('time');
-F1 = simOut.get('F1');
-F2 = simOut.get('F2');
-alpha1 = simOut.get('alpha1');
-alpha2 = simOut.get('alpha2');
+alpha1_ = simOut.get('alpha1');
+alpha2_ = simOut.get('alpha2');
 
-W1 = F1.*alpha1;
-W2 = F2.*alpha2;
+start_distance = getDist(45,45, L0, beta);
+distances = zeros(length(time), 1);
 
-DW1 = diff(W1);
-DT = diff(time);
-DW2 = diff(W2);
+for i=1:1:length(time)
+    distances(i) = getDist(alpha1_(i), alpha2_(i), L0, beta);
+end
 
-P1 = DW1./DT;
-P2 = DW2./DT;
+grip_force = ((-1)*distances + start_distance + d02) * k2;
 
-paw_dedfault_alpha1(2:end),P1);
+prod = grip_force.*alpha1;
 
-paw_default({time}, {F1}, {'default'}, '\alpha', 'F_{1} [N]', task_name, "F1", "plots", false, true);
-paw_default({time}, {F2}, {'default'}, 'time [s]', 'F_{2} [N]', task_name, "F2", "plots", false, true);
-paw_default({time}, {q1}, {'default'}, 'time [s]', '\alpha_{1} [rad]', task_name, "Alpha1", "plots", false, true);
-paw_default({time}, {q2}, {'default'}, 'time [s]', '\alpha_{2} [rad]', task_name, "Alpha2", "plots", false, true);
+paw_default({time}, {prod}, {'Produkt of Angle and Force for '}, 'time [s]' ,  'F_{grip}*\alpha [N*rad]', task_name, "produkt", "plots", false, true);
+paw_default({time}, {distances}, {'distances'}, 'time [s]', 'dist [m]', task_name, "distance", "plots", false, true);
+paw_default({time}, {grip_force}, {'grip_force'}, 'time [s]', 'F_{grip} [N]', task_name, "F-grip", "plots", false, true);
 
 stepsize = 0.033;
 starttime = 10;
@@ -56,39 +53,39 @@ img_num = 1;
 %     
 %     h = figure(img_num);   
 % 
-%     alpha1 = q1(i);
-%     alpha2 = q2(i);
+%     alpha1_ = alpha1(i);
+%     alpha2_ = alpha2(i);
 % 
-%     A1x = -sin(alpha1)*L0/2;
-%     A1y = -cos(alpha1)*L0/2;
+%     A1x = -sin(alpha1_)*L0/2;
+%     A1y = -cos(alpha1_)*L0/2;
 %     A1 = [A1x A1y];
 % 
-%     B1x = -sin(alpha1)*L0;
-%     B1y = -cos(alpha1)*L0;
+%     B1x = -sin(alpha1_)*L0;
+%     B1y = -cos(alpha1_)*L0;
 %     B1 = [B1x B1y];
 % 
 %     C1x = -sin(pi/4)*L0-Lp;
 %     C1y = -cos(pi/4)*L0;
 %     C1 = [C1x C1y];
 % 
-%     D1x = B1x + cos(beta-pi/2+alpha1)*L0;
-%     D1y = B1y - sin(beta-pi/2+alpha1)*L0;
+%     D1x = B1x + cos(beta-pi/2+alpha1_)*L0;
+%     D1y = B1y - sin(beta-pi/2+alpha1_)*L0;
 %     D1 = [D1x D1y];
 % 
-%     A2x = sin(alpha2)*L0/2;
-%     A2y = -cos(alpha2)*L0/2;
+%     A2x = sin(alpha2_)*L0/2;
+%     A2y = -cos(alpha2_)*L0/2;
 %     A2 = [A2x A2y];
 % 
-%     B2x = sin(alpha2)*L0;
-%     B2y = -cos(alpha2)*L0;
+%     B2x = sin(alpha2_)*L0;
+%     B2y = -cos(alpha2_)*L0;
 %     B2 = [B2x B2y];
 % 
 %     C2x = +sin(pi/4)*L0+Lp;
 %     C2y = -cos(pi/4)*L0; 
 %     C2 = [C2x C2y];
 % 
-%     D2x = B2x - cos(beta-pi/2+alpha2)*L0;
-%     D2y = B2y - sin(beta-pi/2+alpha2)*L0;
+%     D2x = B2x - cos(beta-pi/2+alpha2_)*L0;
+%     D2y = B2y - sin(beta-pi/2+alpha2_)*L0;
 %     D2 = [D2x D2y];
 % 
 %     hold on;
@@ -132,4 +129,18 @@ img_num = 1;
 
 %TESTPLOT
 %paw_default({x1;x2}, {y1;y2}, {'sinus'; 'cosinus'}, 'x', 'y', task_name, "sinus vs. cosinus", "plots", true, true)
+
+function [dist] = getDist(alpha1, alpha2, L0, beta)
+    cur_B1x = -sin(alpha1)*L0;
+    cur_B1y = -cos(alpha1)*L0;
+    cur_D1x = cur_B1x + cos(beta-pi/2+alpha1)*L0;
+    cur_D1y = cur_B1y - sin(beta-pi/2+alpha1)*L0;
+
+    cur_B2x = sin(alpha2)*L0;
+    cur_B2y = -cos(alpha2)*L0;
+    cur_D2x = cur_B2x - cos(beta-pi/2+alpha2)*L0;
+    cur_D2y = cur_B2y - sin(beta-pi/2+alpha2)*L0;
+
+    dist = sqrt((cur_D1x - cur_D2x)^2 + (cur_D1y - cur_D2y)^2);
+end
 
