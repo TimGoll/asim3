@@ -5,7 +5,7 @@ warning ('off','all');
 
 Parameter;
 
-do_rerun = true;
+do_rerun = false;
 
 path_arr = strsplit(mfilename('fullpath'), {'/', '\'});
 task_name = string(path_arr(end-1));
@@ -19,20 +19,9 @@ F2 = simOut.get('F2');
 alpha1 = simOut.get('alpha1');
 alpha2 = simOut.get('alpha2');
 
-W1 = F1.*alpha1;
-W2 = F2.*alpha2;
+% plot: alpha1&2 in seperate plots / F1&2 in seperate plots
 
-DW1 = diff(W1);
-DT = diff(time);
-DW2 = diff(W2);
-
-P1 = DW1./DT;
-P2 = DW2./DT;
-
-paw_default({time}, {F1}, {'default'}, 'time [s]', 'F_{1} [N]', task_name, "F1", "plots", false, true);
-paw_default({time}, {F2}, {'default'}, 'time [s]', 'F_{2} [N]', task_name, "F2", "plots", false, true);
-paw_default({time}, {q1}, {'default'}, 'time [s]', '\alpha_{1} [rad]', task_name, "Alpha1", "plots", false, true);
-paw_default({time}, {q2}, {'default'}, 'time [s]', '\alpha_{2} [rad]', task_name, "Alpha2", "plots", false, true);
+paw_default({alpha1(2:end)}, {P1+P2}, {'default'}, 'alpha [rad]', 'P_{1} + P_{2} [W]', task_name, "P1+P2", "plots", false, true);
 
 stepsize = 0.033;
 starttime = 10;

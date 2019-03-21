@@ -4,11 +4,12 @@ function [] = paw_default(data_x, data_y, data_title, label_x, label_y, task, ti
     
     % create figute
     this_fig = figure('Name', title);
+    hold on;
     
-    data_length = size(data_y, 1); %x is always the same
+    data_length = size(data_y, 2); %x is always the same
+    disp(data_length);
     for i=1:1:data_length %iterate over plot array
         plot(data_x{i}, data_y{i}, 'DisplayName', data_title{i}, 'Linewidth', 2);
-        hold on;
     end
     
     grid;
