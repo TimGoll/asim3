@@ -5,7 +5,7 @@ warning ('off','all');
 
 Parameter;
 
-do_rerun = false;
+do_rerun = true;
 
 path_arr = strsplit(mfilename('fullpath'), {'/', '\'});
 task_name = string(path_arr(end-1));
@@ -19,11 +19,14 @@ F2 = simOut.get('F2');
 alpha1 = simOut.get('alpha1');
 alpha2 = simOut.get('alpha2');
 
+alpha1 = alpha1*180/pi;
+alpha2 = alpha2*180/pi;
+
 % plot: alpha1&2 in seperate plots / F1&2 in seperate plots
 
-paw_default({time}, {alpha1}, {'default'}, 'time [s]', '\alpha_{1} [rad]', task_name, "alpha1", "plots", false, true);
-paw_default({time}, {alpha2}, {'default'}, 'time [s]', '\alpha_{2} [rad]', task_name, "alpha2", "plots", false, true);
-paw_default({time,time}, {alpha1,alpha2}, {'\alpha_{1}', '\alpha_{2}'}, 'time [s]', 'angle [rad]', task_name, "alpha1_alpha2", "plots", true, true);
+paw_default({time}, {alpha1}, {'default'}, 'time [s]', '\alpha_{1} [°]', task_name, "alpha1", "plots", false, true);
+paw_default({time}, {alpha2}, {'default'}, 'time [s]', '\alpha_{2} [°]', task_name, "alpha2", "plots", false, true);
+paw_default({time,time}, {alpha1,alpha2}, {'\alpha_{1}', '\alpha_{2}'}, 'time [s]', 'angle [°]', task_name, "alpha1_alpha2", "plots", true, true);
 
 stepsize = 0.033;
 starttime = 10;
