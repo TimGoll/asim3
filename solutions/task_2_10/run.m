@@ -16,6 +16,7 @@ simOut = simulate('Controller', do_rerun);
 time = simOut.get('time');
 alpha1_ = simOut.get('alpha1');
 alpha2_ = simOut.get('alpha2');
+alpha1grad_= alpha1_/pi*180;
 
 start_distance = getDist(45,45, L0, beta);
 distances = zeros(length(time), 1);
@@ -24,11 +25,11 @@ for i=1:1:length(time)
     distances(i) = getDist(alpha1_(i), alpha2_(i), L0, beta);
 end
 
-grip_force = ((-1)*distances + start_distance + d02) * k2;
+grip_force = (distances - d02) * k2;
 
 paw_default({time}, {distances}, {'distances'}, 'time [s]', 'dist [m]', task_name, "distance", "plots", false, true);
 paw_default({time}, {grip_force}, {'grip_force'}, 'time [s]', 'F_{grip} [N]', task_name, "F-grip", "plots", false, true);
-
+paw_default({time}, {alpha1grad_}, {'distances'}, 'time [s]', 'angle [°]', task_name, "angle", "plots", false, true);
 stepsize = 0.033;
 starttime = 10;
 endtime = 20;

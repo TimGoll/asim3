@@ -4,9 +4,10 @@ close ALL;
 warning ('off','all');
 
 Parameter;
-%beta = pi;
+beta = 104/180*pi;
+beta_ = beta/pi*180;
 
-do_rerun = false;
+do_rerun = true;
 
 path_arr = strsplit(mfilename('fullpath'), {'/', '\'});
 task_name = string(path_arr(end-1));
@@ -17,6 +18,7 @@ simOut = simulate('Controller', do_rerun);
 time = simOut.get('time');
 alpha1_ = simOut.get('alpha1');
 alpha2_ = simOut.get('alpha2');
+alpha1grad = alpha1_/pi*180;
 
 start_distance = getDist(45,45, L0, beta);
 distances = zeros(length(time), 1);
@@ -25,13 +27,14 @@ for i=1:1:length(time)
     distances(i) = getDist(alpha1_(i), alpha2_(i), L0, beta);
 end
 
-grip_force = ((-1)*distances + start_distance + d02) * k2;
+grip_force = (distances - d02) * k2;
 
-prod = grip_force.*alpha1;
+prod = grip_force.*alpha1grad;
 
-paw_default({time}, {prod}, {'Produkt of Angle and Force for '}, 'time [s]' ,  'F_{grip}*\alpha [N*rad]', task_name, "produkt", "plots", false, true);
-paw_default({time}, {distances}, {'distances'}, 'time [s]', 'dist [m]', task_name, "distance", "plots", false, true);
-paw_default({time}, {grip_force}, {'grip_force'}, 'time [s]', 'F_{grip} [N]', task_name, "F-grip", "plots", false, true);
+paw_default({time}, {prod}, {'Produkt of Angle and Force for '}, 'time [s]' ,  'F_{grip}*\alpha [N*°]', task_name, "produkt beta="+string(beta_), "plots", false, true);
+%paw_default({time}, {distances}, {'distances'}, 'time [s]', 'dist [m]', task_name, "distance", "plots", false, true);
+paw_default({time}, {grip_force}, {'grip_force'}, 'time [s]', 'F_{grip} [N]', task_name, "F-grip beta="+string(beta_), "plots", false, true);
+paw_default({time}, {alpha1grad}, {'angle'}, 'time [s]', 'angle [°]', task_name, "angle beta="+string(beta_), "plots", false, true);
 
 stepsize = 0.033;
 starttime = 10;
